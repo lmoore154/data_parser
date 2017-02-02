@@ -19,11 +19,15 @@ require 'pry'
 require 'csv'
 
 
+
+deliveries = CSV.foreach("planet_express_logs.csv", headers: true, header_converters: :symbol)
+
+
 class Delivery
 
-  attr_accessor :destination, :item, :crates, :money
+  attr_accessor :destination, :what_got_shipped, :number_of_crates, :money_we_made
 
-  def initialize()
+  def initialize(destination:, what_got_shipped:, number_of_crates:, money_we_made:)
     @destination = destination
     @item = item
     @crates = crates
@@ -31,23 +35,27 @@ class Delivery
   end
 
   def money_made
-
+    total = deliveries.each do |shipment|
+      deliveries[:money_we_made].to_i += total
+    end
+    return total
   end
 
   def bonus
 
   end
 
-  def number_of_trips
-
+  # def number_of_trips
+  #   @trips += 1
+  # end
+  new_delivery = []
+  deliveries.each do |row|
+    new_delivery << Delivery.new(row)
   end
 
 end
 
-deliveries = []
-deliveries << CSV.foreach("planet_express_logs.csv", headers: true, header_converters:
-:symbol) do |row|
-  puts Delivery.new(row)
-end
+
+
 
 binding.pry
