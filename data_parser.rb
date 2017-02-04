@@ -30,8 +30,9 @@ end
 
 class Parse
 attr_accessor :deliveries
+
   def parse_data(file_name)
-    delivery_sheet = CSV.foreach('planet_express_logs.csv', headers: true, header_converters: :symbol)
+    delivery_sheet = CSV.foreach(file_name, headers: true, header_converters: :symbol)
     @deliveries = []
     delivery_sheet.each do |row|
       @deliveries << Delivery.new(row[:destination], row[:what_got_shipped], row[:number_of_crates], row[:money_we_made])
@@ -63,6 +64,7 @@ puts "Fry's bonus is $#{fry_bonus}."
 puts "Amy's bonus is $#{amy_bonus}."
 puts "Bender's bonus is $#{bender_bonus}."
 puts "Leela's bonus is $#{leela_bonus}."
+
 
 # deliveries.each do |delivery|           # Finding bonus without pilot method from above
 #   case delivery.destination
@@ -103,15 +105,14 @@ planets.each do |planet|
                     .inject { |sum, moolah| sum + moolah }
   puts "Planet Express made $#{total} from deliveries to #{planet}."
   end
-  end
-
-
 end
-
 
 
 # Bonus code extracted to method
 
+def total
+
+end
 
 def bonus(pilot_name)
   pilot_bonus = deliveries.select { |delivery| delivery.pilot == pilot_name }
@@ -124,9 +125,12 @@ def pilot_trips(pilot)
   number_of_trips = deliveries.select { |delivery| delivery.pilot == pilot }.count
 end
 
-def
 
 
+end
+
+binding.pry
+#
 # calcs = Parse.new
 # calcs.parse_data("filename")
 # puts "Fry's bonus is #{calcs.bonus("Fry")}"   # Look into finding a way to loop over pilots (like the planets array above)
