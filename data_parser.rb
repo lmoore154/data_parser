@@ -2,7 +2,6 @@
 
 # Explorer Mode
 
-require 'pry'
 require 'csv'
 
 class Delivery
@@ -100,7 +99,6 @@ if action_wanted == 'report'
   puts 'New file created.'
 end
 
-binding.pry
 
 
 
